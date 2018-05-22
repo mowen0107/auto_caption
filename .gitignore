@@ -1,0 +1,12 @@
+/resource
+/test/html
+/.pytest_cache
+.coverage
+*.pyc
+*.mp4
+*.flv
+*.aac
+*.mp3
+
+.vscode/.ropeproject/config.py
+.vscode/.ropeproject/objectdb
