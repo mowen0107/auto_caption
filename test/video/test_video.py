@@ -22,17 +22,31 @@ class TestVideo():
     def teardown_method(self, method):
         pass
 
+    def test_get_fullname(self):
+        fullname = self.video.get_fullname()
+        assert fullname == "test_video.flv"
+
+    def test_get_shortname(self):
+        fullname = self.video.get_fullname()
+        shortname = self.video.get_shortname(fullname)
+        assert shortname == "test_video"
+
+    def test_get_extension(self):
+        fullname = self.video.get_fullname()
+        extension = self.video.get_extension(fullname)
+        assert extension == "flv"
+
     def test_get_right_videoclip(self):
-        video_clip = self.video._get_video_clip()
+        video_clip = self.video.get_video_clip()
         assert isinstance(video_clip, VideoClip)
 
     def test_get_wrong_videoclip(self):
         self.video.file_path = "wrong_file_path.flv"
         with pytest.raises(OSError):
-            video_clip = self.video._get_video_clip()
+            video_clip = self.video.get_video_clip()
 
     def test_get_duration(self):
         video_clip = self.video.video_clip
-        duration = self.video._get_duration(video_clip)
+        duration = self.video.get_duration(video_clip)
         print("--- TestVideo.test_get_duration, duration:{}".format(duration))
         assert duration > 0
