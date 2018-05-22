@@ -15,6 +15,8 @@ class VideoToAudio():
             self.create_dir()
 
     def gen_audio(self):
+        ''' 使用ffmpeg提取视频文件的音频
+        '''
         input_path = self.video.file_path
         output_path = self.audio_output_dir + self.video.shortname + '.aac'
         ffmpeg_command = ffmpy3.FFmpeg(
@@ -24,9 +26,6 @@ class VideoToAudio():
             })
         ffmpeg_command.run()
         return Audio(output_path).audio_clip
-
-    def save_audio(self):
-        pass
 
     def is_dir_exist(self):
         is_exist = os.path.exists(self.audio_output_dir)
