@@ -2,6 +2,7 @@
 ''' Author: HZT
     Create Date: 20180522
 '''
+from moviepy.audio.AudioClip import AudioClip
 from src.video.source_video import SourceVideo
 from src.video_to_audio import VideoToAudio
 
@@ -22,6 +23,15 @@ class TestVideoToAudio():
     def teardown_method(self, method):
         pass
 
-    # def test_is_dir_exist(self):
-    #     is_exist = self.video_to_audio.is_dir_exist()
-    #     assert is_exist is True
+    def test_gen_audio(self):
+        audio = self.video_to_audio.gen_audio()
+        assert isinstance(audio, AudioClip)
+
+    def test_is_dir_exist(self):
+        assert self.video_to_audio.is_dir_exist() is True
+        self.video_to_audio.audio_output_dir = "wrong_path"
+        assert self.video_to_audio.is_dir_exist() is False
+
+    def test_create_dir(self):
+        self.video_to_audio.create_dir()
+        assert self.video_to_audio.is_dir_exist() is True

@@ -27,13 +27,13 @@ class TestVideo():
         assert fullname == "test_video.flv"
 
     def test_get_shortname(self):
-        fullname = self.video.get_fullname()
-        shortname = self.video.get_shortname(fullname)
+        shortname = self.video.get_shortname("test_video.flv")
         assert shortname == "test_video"
 
     def test_get_extension(self):
-        fullname = self.video.get_fullname()
-        extension = self.video.get_extension(fullname)
+        extension = self.video.get_extension("test_video.flv")
+        assert extension == "flv"
+        extension = self.video.get_extension("test.io.flv")
         assert extension == "flv"
 
     def test_get_right_videoclip(self):
