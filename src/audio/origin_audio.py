@@ -18,7 +18,11 @@ class OriginAudio(Audio):
     def save_clip(self, subclip):
         fragment_path = self.file_dir + '/fragment_{}.wav'.format(self.order)
         try:
-            subclip.write_audiofile(fragment_path, codec='pcm_s16le')
+            subclip.write_audiofile(
+                fragment_path,
+                fps=16000,
+                codec='pcm_s16le',
+                ffmpeg_params=['-f', 's16le', '-ac', '1'])
         except Exception as err:
             raise
         else:
