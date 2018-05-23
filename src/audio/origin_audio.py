@@ -12,12 +12,25 @@ class OriginAudio(Audio):
         Audio.__init__(self, file_path)
         self.order = 0
 
-    def get_all_breakpoint(self):
+    def get_all_breakpoint(self, threshold):
         ''' 获得这段audio中所有停顿对应的时间轴位置(second)
         '''
-        pass
+        breakpoint_list = []
+        energe_list = self.get_energe_list(0.4, 0.45)
+        is_above = True
+        for point in energe_list:
+            the_time = point['time']
+            energe = point['energe']
+            if energe < threshold and is_above:
+                breakpoint_list.append(the_time)
+                is_above = False
+            elif energe < threshold and not is_above:
+                continue
+            else:
+                is_above = True
+        return breakpoint_list
 
-    def get_energe_list(self, step_time=0.5, duration=0.5):
+    def get_energe_list(self, step_time=0.3, duration=0.3):
         energe_list = []
         for t in np.arange(0, self.duration, step_time):
             energe = self.count_energe(t, duration)

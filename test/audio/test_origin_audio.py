@@ -24,9 +24,15 @@ class TestOriginAudio():
     def teardown_method(self, method):
         pass
 
+    def test_all_breakpoint(self):
+        threshold = 0.1
+        breakpoint_list = self.origin_audio.get_all_breakpoint(threshold)
+        print("breakpoint_list:{}".format(breakpoint_list))
+        assert breakpoint_list != [] and breakpoint_list is not None
+
     def test_get_energe_list(self):
         energe_list = self.origin_audio.get_energe_list(0.1, 0.1)
-        PlotImg.plot_energe_list(energe_list)
+        # PlotImg.plot_energe_list(energe_list)
         assert energe_list != [] and energe_list is not None
 
     def test_count_energe(self):
