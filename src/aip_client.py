@@ -17,4 +17,3 @@ class AipClient():
         API_KEY = AIP_CONFIG['API_KEY']
         SECRET_KEY = AIP_CONFIG['SECRET_KEY']
         self.client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)
-

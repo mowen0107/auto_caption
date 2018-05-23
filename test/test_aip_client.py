@@ -2,6 +2,8 @@
 ''' Author: HZT
     Create Date: 20180522
 '''
+from src.aip_client import AipClient
+
 
 class TestAipClient():
     @classmethod

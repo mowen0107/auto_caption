@@ -18,7 +18,7 @@ class TestOriginAudio():
 
     def setup_method(self, method):
         self.origin_audio = OriginAudio(
-            "./resource/audio/test_video/test_video.aac")
+            "./resource/audio/test_video/test_video.wav")
 
     def teardown_method(self, method):
         pass

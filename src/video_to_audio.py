@@ -18,11 +18,11 @@ class VideoToAudio():
         ''' 使用ffmpeg提取视频文件的音频
         '''
         input_path = self.video.file_path
-        output_path = self.audio_output_dir + self.video.shortname + '.aac'
+        output_path = self.audio_output_dir + self.video.shortname + '.wav'
         ffmpeg_command = ffmpy3.FFmpeg(
             inputs={input_path: None},
             outputs={
-                output_path: '-vn -y -acodec copy'
+                output_path: '-vn -y -acodec pcm_s16le'
             })
         ffmpeg_command.run()
         return Audio(output_path).audio_clip
