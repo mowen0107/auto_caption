@@ -22,12 +22,6 @@ class TestAudio():
     def teardown_method(self, method):
         pass
 
-    def test_get_file_dir(self):
-        right_file_path = "./resource/audio/test_video/test_video.wav"
-        audio = Audio(right_file_path)
-        file_dir = audio.get_file_dir()
-        assert file_dir == "./resource/audio/test_video"
-
     def test_get_right_audioclip(self):
         right_file_path = "./resource/audio/test_video/test_video.wav"
         audio = Audio(right_file_path)

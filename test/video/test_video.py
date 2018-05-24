@@ -22,20 +22,6 @@ class TestVideo():
     def teardown_method(self, method):
         pass
 
-    def test_get_fullname(self):
-        fullname = self.video.get_fullname()
-        assert fullname == "test_video.flv"
-
-    def test_get_shortname(self):
-        shortname = self.video.get_shortname("test_video.flv")
-        assert shortname == "test_video"
-
-    def test_get_extension(self):
-        extension = self.video.get_extension("test_video.flv")
-        assert extension == "flv"
-        extension = self.video.get_extension("test.io.flv")
-        assert extension == "flv"
-
     def test_get_right_videoclip(self):
         video_clip = self.video.get_video_clip()
         assert isinstance(video_clip, VideoClip)
