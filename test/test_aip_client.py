@@ -29,12 +29,8 @@ class TestAipClient():
                 i)
             with open(test_audio_path, 'rb') as fp:
                 audio_data = fp.read()
-            response_json = self.aip_client.get_recognition_response(
-                audio_data)
-            if response_json['err_no'] == 0:
-                result = response_json['result'][0]
-                print(
-                    "--- TestAipClient,test_get_recognition_result, result:{}".
-                    format(result))
-                result_list.append(result)
+            result = self.aip_client.recognize_audio(audio_data)
+            print("--- TestAipClient,test_get_recognition_result, result:{}".
+                  format(result))
+            result_list.append(result)
         print("result_list:{}".format(result_list))
