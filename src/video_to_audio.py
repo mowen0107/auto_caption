@@ -4,7 +4,7 @@
 '''
 import os
 import ffmpy3
-from src.audio.audio import Audio
+from src.audio.origin_audio import OriginAudio
 
 
 class VideoToAudio():
@@ -25,7 +25,7 @@ class VideoToAudio():
                 output_path: '-vn -y -acodec pcm_s16le'
             })
         ffmpeg_command.run()
-        return Audio(output_path).audio_clip
+        return OriginAudio(output_path)
 
     def is_dir_exist(self):
         is_exist = os.path.exists(self.audio_output_dir)

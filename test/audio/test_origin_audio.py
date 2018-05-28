@@ -2,12 +2,14 @@
 ''' Author: HZT
     Create Date: 20180522
 '''
+import pytest
 from moviepy.audio.AudioClip import AudioClip
 from src.audio.audio import Audio
 from src.audio.origin_audio import OriginAudio
 from src.plot_img import PlotImg
 
 
+@pytest.mark.skip(reason="none")
 class TestOriginAudio():
     @classmethod
     def setup_class(cls):
@@ -24,14 +26,21 @@ class TestOriginAudio():
     def teardown_method(self, method):
         pass
 
+    def test_gen_fragment_index(self):
+        self.origin_audio.gen_all_fragment()
+        fragment_index_df = self.origin_audio.gen_fragment_index()
+        print("fragment_index_df:{}".format(fragment_index_df))
+
+    def test_gen_all_fragment(self):
+        self.origin_audio.gen_all_fragment()
+
     def test_all_breakpoint(self):
-        threshold = 0.1
-        breakpoint_list = self.origin_audio.get_all_breakpoint(threshold)
+        breakpoint_list = self.origin_audio.get_all_breakpoint()
         print("breakpoint_list:{}".format(breakpoint_list))
         assert breakpoint_list != [] and breakpoint_list is not None
 
     def test_get_energe_list(self):
-        energe_list = self.origin_audio.get_energe_list(0.1, 0.1)
+        energe_list = self.origin_audio.get_energe_list(0.4, 0.45)
         # PlotImg.plot_energe_list(energe_list)
         assert energe_list != [] and energe_list is not None
 
@@ -55,6 +64,7 @@ class TestOriginAudio():
         assert subclip.duration > 0
         print("duration:{}".format(subclip.duration))
 
+    @pytest.mark.skip(reason='会覆盖掉原来的文件')
     def test_save_clip(self):
         subclip = self.origin_audio.subclip(0, 20)
         is_success = self.origin_audio.save_clip(subclip)

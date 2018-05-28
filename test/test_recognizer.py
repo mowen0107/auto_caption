@@ -1,10 +1,13 @@
 # -*- coding: UTF-8 -*-
 ''' Author: HZT
-    Create Date: 20180521
+    Create Date: 20180528
 '''
 
+import pytest
+from src.recognizer import Recognizer
 
-class TestFragmentAudio():
+
+class TestRecognizer():
     @classmethod
     def setup_class(cls):
         pass
