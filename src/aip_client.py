@@ -17,6 +17,8 @@ class AipClient():
             service_urls=['translate.google.cn'])
 
     def recognize_audio(self, audio_data):
+        ''' 进行语音识别
+        '''
         try:
             response_json = self.audio_recognition_client.asr(
                 audio_data, 'wav', 16000, {
@@ -32,9 +34,11 @@ class AipClient():
                 return result
             else:
                 print("err_no:{}".format(response_json['err_no']))
-                return "met error when recognized audio"
+                return ""
 
     def translate(self, str_to_trans):
+        ''' 进行英文到中文的翻译
+        '''
         trans_result = self.translation_client.translate(
             str_to_trans, dest='zh-CN').text
         print("translation_result:{}".format(trans_result))

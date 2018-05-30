@@ -5,6 +5,7 @@
 import pandas as pd
 import numpy as np
 import moviepy
+from moviepy.editor import AudioFileClip
 from src.audio.audio import Audio
 
 
@@ -13,6 +14,21 @@ class OriginAudio(Audio):
         Audio.__init__(self, file_path)
         self.order = 0
         self.fragment_info = []
+        audio_clip = self.get_audio_clip()
+        self.audio_clip = audio_clip
+        self.duration = self.get_duration(audio_clip)
+
+    def get_audio_clip(self):
+        try:
+            audio_clip = AudioFileClip(self.file_path)
+        except OSError as err:
+            raise
+        else:
+            return audio_clip
+
+    def get_duration(self, audio_clip):
+        duration = audio_clip.duration
+        return duration
 
     def gen_fragment_index(self):
         ''' 生成一个fragment的索引文件

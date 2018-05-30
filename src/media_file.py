@@ -22,8 +22,6 @@ class MediaFile():
         ''' 获取带后缀的文件名
         '''
         (file_dir, fullname) = os.path.split(self.file_path)
-        print("--- Video.get_file_name, file_dir:{}, fullname:{}".format(
-            file_dir, fullname))
         return fullname
 
     def get_shortname(self, fullname):

@@ -4,6 +4,7 @@
 '''
 from moviepy.audio.AudioClip import AudioClip
 from src.video.source_video import SourceVideo
+from src.audio.origin_audio import OriginAudio
 from src.video_to_audio import VideoToAudio
 
 
@@ -25,7 +26,7 @@ class TestVideoToAudio():
 
     def test_gen_audio(self):
         audio = self.video_to_audio.gen_audio()
-        assert isinstance(audio, AudioClip)
+        assert isinstance(audio, OriginAudio)
 
     def test_is_dir_exist(self):
         assert self.video_to_audio.is_dir_exist() is True

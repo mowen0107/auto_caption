@@ -2,6 +2,7 @@
 ''' Author: HZT
     Create Date: 20180521
 '''
+from multiprocessing.pool import Pool
 from src.video.source_video import SourceVideo
 from src.video_to_audio import VideoToAudio
 from src.audio.fragment_audio import FragmentAudio

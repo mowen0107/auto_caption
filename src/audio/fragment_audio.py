@@ -5,10 +5,9 @@
 from src.audio.audio import Audio
 
 
-class FragmentAudio():
+class FragmentAudio(Audio):
     def __init__(self, order, file_path, start_second, end_second):
-        # Audio.__init__(self, file_path)
-        self.file_path = file_path
+        Audio.__init__(self, file_path)
         self.order = order
         self.start_second = start_second
         self.end_second = end_second
