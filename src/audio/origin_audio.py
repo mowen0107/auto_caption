@@ -30,27 +30,14 @@ class OriginAudio(Audio):
         duration = audio_clip.duration
         return duration
 
-    def gen_fragment_index(self):
-        ''' 生成一个fragment的索引文件
-        '''
-        csv_path = self.file_dir + '/' + 'fragment_index.csv'
-        columns = ['file_path', 'start_second', 'end_second']
-        fragment_index_df = pd.DataFrame(
-            data=self.fragment_info, columns=columns)
-        fragment_index_df.to_csv(
-            csv_path, sep=',', index=True, columns=columns)
-        return fragment_index_df
-
     def gen_all_fragment(self):
         ''' 由停顿点位置把origin_audio切割成一个个的fragment
         '''
-        breakpoint_list = self.get_all_breakpoint()
-        for i in range(0, len(breakpoint_list)):
-            start_second = breakpoint_list[i]
-            if i == len(breakpoint_list) - 1:
-                end_second = self.duration
-            else:
-                end_second = breakpoint_list[i + 1]
+        fragment_period_list = self.get_fragment_period()
+
+        for fragment_period in fragment_period_list:
+            start_second = fragment_period[0]
+            end_second = fragment_period[1]
             fragment_path = self.file_dir + '/fragment_{}.wav'.format(
                 self.order)
             self.fragment_info.append(
@@ -60,24 +47,52 @@ class OriginAudio(Audio):
             self.order += 1
         return self.fragment_info
 
-    def get_all_breakpoint(self):
-        ''' 获得这段audio中所有停顿对应的时间轴位置(second)
-        '''
+    def get_fragment_period(self):
         threshold = 0.1
-        breakpoint_list = []
+        period_list = []
+        period = []
         energe_list = self.get_energe_list(0.4, 0.45)
-        is_above = True
         for point in energe_list:
             the_time = point['time']
-            energe = point['energe']
-            if energe < threshold and is_above:
-                breakpoint_list.append(the_time)
-                is_above = False
-            elif energe < threshold and not is_above:
-                continue
-            else:
-                is_above = True
-        return breakpoint_list
+            is_start = self.is_start_point(point, energe_list, threshold)
+            is_end = self.is_end_point(point, energe_list, threshold)
+            if is_end:
+                print("end", the_time)
+                period.append(the_time)
+                period_list.append(period)
+                period = []
+            if is_start:
+                print("start", the_time)
+                period.append(the_time)
+        return period_list
+
+    def is_start_point(self, point, energe_list, threshold):
+        index = energe_list.index(point)
+        energe = point['energe']
+
+        if energe > threshold and index == 0:
+            return True
+        elif energe < threshold and index == len(energe_list) - 1:
+            return False
+        elif energe < threshold and energe_list[index
+                                                + 1]['energe'] > threshold:
+            return True
+        else:
+            return False
+
+    def is_end_point(self, point, energe_list, threshold):
+        index = energe_list.index(point)
+        energe = point['energe']
+
+        if energe > threshold and index == len(energe_list) - 1:
+            return True
+        elif energe < threshold and index == 0:
+            return False
+        elif energe < threshold and energe_list[index
+                                                - 1]['energe'] > threshold:
+            return True
+        else:
+            return False
 
     def get_energe_list(self, step_time, duration):
         energe_list = []

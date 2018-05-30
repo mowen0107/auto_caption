@@ -9,7 +9,7 @@ from src.audio.origin_audio import OriginAudio
 from src.plot_img import PlotImg
 
 
-@pytest.mark.skip(reason="none")
+# @pytest.mark.skip(reason="none")
 class TestOriginAudio():
     @classmethod
     def setup_class(cls):
@@ -43,18 +43,14 @@ class TestOriginAudio():
         print("--- TestAudio.test_get_duration, duration:{}".format(duration))
         assert duration > 0
 
-    def test_gen_fragment_index(self):
-        self.origin_audio.gen_all_fragment()
-        fragment_index_df = self.origin_audio.gen_fragment_index()
-        print("fragment_index_df:{}".format(fragment_index_df))
-
+    # @pytest.mark.skip(reason="耗时")
     def test_gen_all_fragment(self):
-        self.origin_audio.gen_all_fragment()
+        fragment_info = self.origin_audio.gen_all_fragment()
+        print("fragment_info:{}".format(fragment_info))
 
-    def test_all_breakpoint(self):
-        breakpoint_list = self.origin_audio.get_all_breakpoint()
-        print("breakpoint_list:{}".format(breakpoint_list))
-        assert breakpoint_list != [] and breakpoint_list is not None
+    def test_get_fragment_period(self):
+        fragment_period_list = self.origin_audio.get_fragment_period()
+        print(fragment_period_list)
 
     def test_get_energe_list(self):
         energe_list = self.origin_audio.get_energe_list(0.4, 0.45)

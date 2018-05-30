@@ -35,6 +35,7 @@ class TestAipClient():
             result_list.append(result)
         print("result_list:{}".format(result_list))
 
+    @pytest.mark.skip(reason="很耗时间，需要使用谷歌翻译api")
     def test_translate(self):
         trans_str = self.aip_client.translate("hello world")
         assert trans_str == "你好，世界"

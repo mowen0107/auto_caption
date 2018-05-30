@@ -28,5 +28,5 @@ class TestRecognizer():
         recognizer = Recognizer()
         fragment = FragmentAudio(
             0, './resource/audio/test_video/fragment_0.wav', 2, 3)
-        trans_result = recognizer.recognize_fragment(fragment)
+        trans_result = recognizer.recognize(fragment)
         assert trans_result != "" and trans_result is not None

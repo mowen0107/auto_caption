@@ -41,5 +41,6 @@ class AipClient():
         '''
         trans_result = self.translation_client.translate(
             str_to_trans, dest='zh-CN').text
+        print("str_to_trans:{}".format(str_to_trans))
         print("translation_result:{}".format(trans_result))
         return trans_result
